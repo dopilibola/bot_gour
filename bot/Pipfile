@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 aiogram = "==2.2"
+wikipedia = "*"
 
 [dev-packages]
 
