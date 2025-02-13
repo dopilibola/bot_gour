@@ -20,7 +20,7 @@ from keyboards.inline.productkey import categoryMenu, coursesMenu, booksMenu, te
 from loader import dp
 
 
-@dp.message_handler(text_contains="Mahsulotlar")
+@dp.message_handler(text_contains="🛍️ Mahsulotlar")
 async def select_category(message: Message):
     logging.info(message)
     logging.info(f"{message.from_user.username=}")
@@ -28,15 +28,29 @@ async def select_category(message: Message):
 
     await message.answer(f"Mahsulot tanlang", reply_markup=categoryMenu)
 
+# @dp.callback_query_handler(text="courses")
+# async def buy_courses(call: CallbackQuery):
+#     callback_data = call.data
+#     logging.info(f"{callback_data=}")
+#     logging.info(f"{call.from_user.username=}")
+#     # await call.message.edit_reply_markup(reply_markup=None)
+#     await call.message.delete()
+#     await call.message.answer("Kurs tanlang", reply_markup=coursesMenu)
+#     await call.answer(cache_time=60)
+
 @dp.callback_query_handler(text="courses")
 async def buy_courses(call: CallbackQuery):
     callback_data = call.data
-    logging.info(f"{callback_data=}")
-    logging.info(f"{call.from_user.username=}")
-    # await call.message.edit_reply_markup(reply_markup=None)
-    await call.message.delete()
+    logging.info(f"Callback data: {callback_data}")
+    logging.info(f"Username: {call.from_user.username if call.from_user.username else 'No username'}")
+    try:
+        await call.message.delete()
+    except Exception as e:
+        logging.warning(f"Failed to delete message: {e}")
+
     await call.message.answer("Kurs tanlang", reply_markup=coursesMenu)
     await call.answer(cache_time=60)
+
 
 @dp.callback_query_handler(text_contains="books")
 async def buy_books(call: CallbackQuery):

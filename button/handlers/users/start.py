@@ -27,6 +27,7 @@ from aiogram import types
 from aiogram.dispatcher.filters.builtin import CommandStart
 
 from keyboards.default.starcom import menuStart
+
 from loader import dp
 
 
